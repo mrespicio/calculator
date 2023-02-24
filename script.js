@@ -26,16 +26,16 @@ function divide(a, b){
 
 function operate(operator, a, b){
 	switch(operator){
-		case '+':
+		case 'plus':
 			add(a, b);
 			break;
-		case '-':
+		case 'minus':
 			subtract(a, b);
 			break;
-		case '*':
+		case 'times':
 			multiply(a, b);
 			break;
-		case '/':
+		case 'divided':
 			divide(a, b);
 			break;
 	}
