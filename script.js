@@ -20,8 +20,8 @@ buttons.forEach(button => {
 			// push then clear number
 			if(num != 0){
 				statement.push(Number(num)); 
-				num = ''; }
-
+				num = ''; 
+			}
 			// only push operand, no need to push equals
 			if(button.id != 'equals') {statement.push(button.id)}; 
 
@@ -54,7 +54,7 @@ buttons.forEach(button => {
 				num = '';
 			}
 		} //elseif operand or equals
-		
+
 		else if(button.id == 'clear-all'){ //clear entire array
 			statement = [];
 		}
