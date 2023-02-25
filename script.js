@@ -4,38 +4,73 @@ const buttons = calculatorContainer.querySelectorAll('button'); // nodelist of a
 
 let op = '';
 let statement = [];
-let num = [];
-let numA;
-let numB
-let currentResults;   
+let num = '';
+let currentResults;
+
 
 buttons.forEach(button => {
 	button.addEventListener('click', () => {
-
-		// when user clicks number, operand, then equal
-		if(button.id == 'equals' && statement.length == 2){
-			console.log('you clicked a number, operand, then equal');
-			currentResults = operate(statement[1], Number(statement[0]), Number(statement[0]));
-			statement.splice(0, 2, currentResults);
+		// if click digit, push into digit array
+		if(button.parentElement.id == 'digits'){
+			// clear if new number
+			num += button.id;
+			console.log('current Number is: ' + num)
 		}
 
-		// when statement is ready to be calculated, with 3 values
-		else if(button.id == 'equals' || 
-			(button.parentElement.id == 'operands' && statement.length == 3)) { 
+		//else if(statement.length == 1) statement.push(button.id);
+
+		// click on operand or equals
+		else if(button.parentElement.id == 'operands' || button.id == 'equals'){
+			// push then clear number
+			if(num != 0){
+			statement.push(Number(num)); 
+			num = ''; }
+
+			// only push operand, no need to push equals
+			if(button.id != 'equals') {statement.push(button.id)}; 
+			//console.log(statement);
+			//statement.push(button.id)
+
+			if(button.id == 'equals'){
 				currentResults = operate(statement[1], Number(statement[0]), Number(statement[2])) //calculate results
 				console.log('the current answer is: ' + currentResults); // display current results
 				statement.splice(0, 3, currentResults); // remove previous elements from array, replaces index 0 w/ current results
-				if(button.parentElement.id == 'operands') statement.push(button.id);
-		}
+				num = '';
+			}
 
-		else if(button.parentElement.id == 'operands' && statement.length == 2){
-			currentResults = operate(statement[1], Number(statement[0]), Number(statement[0]));
-			statement.splice(0, 2, currentResults);
-			statement.push(button.id);
-			console.log('you clicked: ' + button.id)
-			console.log('the results are: ' + currentResults);
-			console.log('clicked two operands back to back')
-		}
+			console.log(statement)
+
+
+			// number, operand, operand/equals
+			// if statement[1] is not a number, then it is an operand or undefined
+			//if(typeof statement[0] == 'number' && typeof statement[1] == 'string' &&
+			 /*(button.parentElement.id == 'operands' || button.id == 'equals')
+			 typeof statement[2] =='string'){
+				console.log('you picked number, operand, then another operand or equals')
+				currentResults = operate(statement[1], Number(statement[0]), Number(statement[0]))
+				console.log('the current answer after double string is: ' + currentResults);
+				statement.splice(0, 3, currentResults); // remove previous elements from array, replaces index 0 w/ current results
+				num = '';
+			}  */
+
+
+			/*
+			// when user clicks number, operand, then equal
+			else if(button.id == 'equals' && statement.length == 2){
+				currentResults = operate(statement[1], Number(statement[0]), Number(statement[0]));
+				statement.splice(0, 3, currentResults);
+			} */
+
+			/*
+			if(button.id == 'equals'){
+				console.log('calculating...')
+				currentResults = operate(statement[1], Number(statement[0]), Number(statement[2])) //calculate results
+				console.log('the current answer is: ' + currentResults); // display current results
+				statement.splice(0, 3, currentResults); // remove previous elements from array, replaces index 0 w/ current results
+				if(button.parentElement.id == 'operands') statement.push(button.id); // push new operand
+			} */
+
+		} //elseif operand or equals
 
 		else if(button.id == 'clear-all'){ //clear entire array
 			statement = [];
@@ -44,12 +79,14 @@ buttons.forEach(button => {
 			statement.pop();
 			console.log(statement)
 		}
+		/*
 		else {
 			statement.push(button.id); 
-		}
-		console.log(statement);
-	});
-});
+		} */
+
+		//console.log(statement);
+	}); //eventclicker
+}); //foreach
 
 function add(a, b){
 	return a + b;
