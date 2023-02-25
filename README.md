@@ -5,6 +5,9 @@
 ## Project Goals
 Create a calculator web application using HTML, CSS, and JavaScript
 
+## Phase 1: Create game in browser console
+
+
 ## Built With
 ### Technologies
 * HTML
