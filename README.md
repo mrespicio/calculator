@@ -1,5 +1,7 @@
 # calculator
 
+[Live Demo](https://mrespicio.github.io/calculator/)
+
 ## Project Goals
 Create a calculator web application using HTML, CSS, and JavaScript
 
