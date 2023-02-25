@@ -2,7 +2,6 @@ const calculatorContainer = document.getElementById('calculator-container');
 const digitsContainer = document.getElementById('digits');
 const buttons = calculatorContainer.querySelectorAll('button'); // nodelist of all bbuttons
 
-let op = '';
 let statement = [];
 let num = '';
 let currentResults;
@@ -23,53 +22,44 @@ buttons.forEach(button => {
 		else if(button.parentElement.id == 'operands' || button.id == 'equals'){
 			// push then clear number
 			if(num != 0){
-			statement.push(Number(num)); 
-			num = ''; }
+				statement.push(Number(num)); 
+				num = ''; }
 
 			// only push operand, no need to push equals
 			if(button.id != 'equals') {statement.push(button.id)}; 
-			//console.log(statement);
-			//statement.push(button.id)
 
-			if(button.id == 'equals'){
+
+
+			// number - operand - operand/ ......equals
+			// if you click another operand, check if statement already has number and operand
+			// calculation will take place using digit by itself and first operand
+			if(
+				(button.parentElement.id == 'operands' && 
+			typeof statement[0] == 'number' && 
+			typeof statement[1] == 'string' &&
+			typeof statement[2] == 'string') ||
+			(button.id == 'equals' && 
+			typeof statement[0] == 'number' &&
+			typeof statement[1] == 'string' &&
+			typeof statement[2] == 'undefined')
+			) //if
+			{
+				console.log('hello');
+				currentResults = operate(statement[1], Number(statement[0]), Number(statement[0]))
+				console.log('the current answer is: ' + currentResults); // display current results
+				statement.splice(0, 3, currentResults); // remove previous elements from array, replaces index 0 w/ current results
+				num = '';
+				if(button.id != 'equals') statement.push(button.id) //push new operand
+			}
+
+			// basic calculations
+			if(button.id == 'equals' && typeof statement[2] == 'number' 
+			|| (button.parentElement.id == 'operands' && statement.length >= 3)){
 				currentResults = operate(statement[1], Number(statement[0]), Number(statement[2])) //calculate results
 				console.log('the current answer is: ' + currentResults); // display current results
 				statement.splice(0, 3, currentResults); // remove previous elements from array, replaces index 0 w/ current results
 				num = '';
 			}
-
-			console.log(statement)
-
-
-			// number, operand, operand/equals
-			// if statement[1] is not a number, then it is an operand or undefined
-			//if(typeof statement[0] == 'number' && typeof statement[1] == 'string' &&
-			 /*(button.parentElement.id == 'operands' || button.id == 'equals')
-			 typeof statement[2] =='string'){
-				console.log('you picked number, operand, then another operand or equals')
-				currentResults = operate(statement[1], Number(statement[0]), Number(statement[0]))
-				console.log('the current answer after double string is: ' + currentResults);
-				statement.splice(0, 3, currentResults); // remove previous elements from array, replaces index 0 w/ current results
-				num = '';
-			}  */
-
-
-			/*
-			// when user clicks number, operand, then equal
-			else if(button.id == 'equals' && statement.length == 2){
-				currentResults = operate(statement[1], Number(statement[0]), Number(statement[0]));
-				statement.splice(0, 3, currentResults);
-			} */
-
-			/*
-			if(button.id == 'equals'){
-				console.log('calculating...')
-				currentResults = operate(statement[1], Number(statement[0]), Number(statement[2])) //calculate results
-				console.log('the current answer is: ' + currentResults); // display current results
-				statement.splice(0, 3, currentResults); // remove previous elements from array, replaces index 0 w/ current results
-				if(button.parentElement.id == 'operands') statement.push(button.id); // push new operand
-			} */
-
 		} //elseif operand or equals
 
 		else if(button.id == 'clear-all'){ //clear entire array
@@ -77,14 +67,13 @@ buttons.forEach(button => {
 		}
 		else if(button.id == 'clear-entry'){ //clear last entry
 			statement.pop();
-			console.log(statement)
 		}
 		/*
 		else {
 			statement.push(button.id); 
 		} */
 
-		//console.log(statement);
+		console.log(statement);
 	}); //eventclicker
 }); //foreach
 
