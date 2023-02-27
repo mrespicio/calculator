@@ -28,7 +28,7 @@ buttons.forEach(button => {
 			display.append(`${button.id}`); // only for displaying
 
 			// push digit to array then clear number
-			if(num != 0){
+			if(num != undefined){
 				statement.push(Number(num)); 
 				num = ''; 
 			}

@@ -30,3 +30,11 @@
 #operands .btn{
     background-color: lightcoral;
 }
+
+#display{
+    border: solid 1px red;
+}
+
+#answer-display{
+    border: solid 1px green;
+}
