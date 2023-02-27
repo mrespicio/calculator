@@ -2,6 +2,11 @@
     font-family: 'courier new';
 }
 
+#display{
+    background-color: lightcyan;
+    width: 500px;
+    height: 100px;
+}
 #calculator-container{
     background-color: lightblue;
     width: 500px;

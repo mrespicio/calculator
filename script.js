@@ -1,5 +1,6 @@
 const calculatorContainer = document.getElementById('calculator-container');
 const buttons = calculatorContainer.querySelectorAll('button'); // nodelist of all buttons
+const display = document.getElementById('display')
 
 let statement = [];
 let num = '';
@@ -7,21 +8,24 @@ let currentResults;
 
 buttons.forEach(button => {
 	button.addEventListener('click', () => {
-		// if click digit, push into digit array
+		// if click digit, append to num
 		if(button.parentElement.id == 'digits'){
 			// if number in statement was calculated, clear it
 			if(statement.length == 1) statement = [];
 			num += button.id;
 			console.log('current Number is: ' + num)
+			display.append(`${button.id}`)
 		}
 
 		// click on operand or equals
 		else if(button.parentElement.id == 'operands' || button.id == 'equals'){
-			// push then clear number
+			display.append(`${button.id}`);
+			// push digit to array then clear number
 			if(num != 0){
 				statement.push(Number(num)); 
 				num = ''; 
 			}
+
 			// only push operand, no need to push equals
 			if(button.id != 'equals') {statement.push(button.id)}; 
 
@@ -72,16 +76,16 @@ const divide = (a, b) => a/b;
 
 function operate(operator, a, b){
 	switch(operator){
-		case 'plus':
+		case '+':
 			return add(a, b);
 			break;
-		case 'minus':
+		case '-':
 			return subtract(a, b);
 			break;
-		case 'times':
+		case 'x':
 			return multiply(a, b);
 			break;
-		case 'divided':
+		case '/':
 			return divide(a, b);
 			break;
 	}
