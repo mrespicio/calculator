@@ -13,20 +13,15 @@ buttons.forEach(button => {
 		if(button.parentElement.id == 'digits'){
 			// if number in statement was calculated, clear it
 			if(statement.length == 1){
-				//console.log('the current answer is ' + answer);
-				//display.innerText = '';
-				//answer.innerText = answer;
+				display.innerText = '';
 				statement = [];
 			}
 			num += button.id; // create number
 			//console.log('current Number is: ' + num)
-			//display.append(`${button.id}`) //append digit to display, not yet pushed into array
 		}
 
 		// click on operand or =
 		else if(button.parentElement.id == 'operands' || button.id == '='){
-			//display.append(`${button.id}`); // only for displaying
-
 			// push digit to array then clear number
 			if(num !== ''){
 				statement.push(Number(num)); 
@@ -51,16 +46,11 @@ buttons.forEach(button => {
 			){
 				currentResults = operate(statement[1], Number(statement[0]), Number(statement[0]));
 				statement.splice(0, 3, currentResults); // remove previous elements from array, replaces index 0 w/ current results
-				//display.innerText = `${currentResults}`;
-				//answer.innerText = `${currentResults}`;
 				num = '';
 
 				//push and display new operand
 				if(button.id != '='){ 
 					statement.push(button.id) 
-					//display.append(button.id);
-					//answer.innerText = `${currentResults}`;
-					//display.append(answer);
 				}	
 			}
 
@@ -71,10 +61,6 @@ buttons.forEach(button => {
 				currentResults = operate(statement[1], Number(statement[0]), Number(statement[2])) //calculate results
 				statement.splice(0, 3, currentResults); // remove previous elements from array, replaces index 0 w/ current results
 				num = '';
-				//console.log('the current answer is ' + currentResults)
-				//display.append(`${currentResults}`);
-				//answer.innerText = `${currentResults}`;
-				//display.append(answer);
 			}
 		} //elseif operand or =
 
