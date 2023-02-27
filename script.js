@@ -14,24 +14,21 @@ buttons.forEach(button => {
 			// if number in statement was calculated, clear it
 			if(statement.length == 1){
 				//console.log('the current answer is ' + answer);
-				display.innerText = '';
+				//display.innerText = '';
 				//answer.innerText = answer;
 				statement = [];
 			}
 			num += button.id; // create number
 			//console.log('current Number is: ' + num)
-			display.append(`${button.id}`) //append digit to display, not yet pushed into array
+			//display.append(`${button.id}`) //append digit to display, not yet pushed into array
 		}
 
 		// click on operand or =
 		else if(button.parentElement.id == 'operands' || button.id == '='){
-			display.append(`${button.id}`); // only for displaying
-
-			console.log('the number to push is' + num);
+			//display.append(`${button.id}`); // only for displaying
 
 			// push digit to array then clear number
 			if(num !== ''){
-
 				statement.push(Number(num)); 
 				num = ''; 
 			}
@@ -54,16 +51,16 @@ buttons.forEach(button => {
 			){
 				currentResults = operate(statement[1], Number(statement[0]), Number(statement[0]));
 				statement.splice(0, 3, currentResults); // remove previous elements from array, replaces index 0 w/ current results
-				display.innerText = `${currentResults}`;
-				answer.innerText = `${currentResults}`;
+				//display.innerText = `${currentResults}`;
+				//answer.innerText = `${currentResults}`;
 				num = '';
 
 				//push and display new operand
 				if(button.id != '='){ 
 					statement.push(button.id) 
-					display.append(button.id);
-					answer.innerText = `${currentResults}`;
-					display.append(answer);
+					//display.append(button.id);
+					//answer.innerText = `${currentResults}`;
+					//display.append(answer);
 				}	
 			}
 
@@ -75,9 +72,9 @@ buttons.forEach(button => {
 				statement.splice(0, 3, currentResults); // remove previous elements from array, replaces index 0 w/ current results
 				num = '';
 				//console.log('the current answer is ' + currentResults)
-				display.append(`${currentResults}`);
-				answer.innerText = `${currentResults}`;
-				display.append(answer);
+				//display.append(`${currentResults}`);
+				//answer.innerText = `${currentResults}`;
+				//display.append(answer);
 			}
 		} //elseif operand or =
 
@@ -85,14 +82,23 @@ buttons.forEach(button => {
 			console.log('the last answer was ' + currentResults)
 			statement = [];
 			display.innerText = '';
-			//console.log('the current display is ' + display.innerText);
 			answer.innerText = '';
-			//console.log(answer.innerText);
 		}
 		else if(button.id == 'clear-entry'){ //clear last entry
-			statement.pop();
+			//statement.pop();
+			num = num.substring(0, num.length-1);
 			//display.innerText = `${statement}`
 		}
+
+		if(button.id != 'clear-all' && button.id != 'clear-entry') display.append(button.id);
+		console.log('the answer is' + currentResults);
+		if(typeof currentResults != 'undefined'){
+			display.append(currentResults);
+			answer.innerText = currentResults;
+			currentResults = '';
+		} 
+
+		console.log('the current number to push is ' + num);
 		console.log(statement);
 	}); //eventclicker
 }); //foreach
