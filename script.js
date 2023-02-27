@@ -17,8 +17,8 @@ buttons.forEach(button => {
 			display.append(`${button.id}`)
 		}
 
-		// click on operand or equals
-		else if(button.parentElement.id == 'operands' || button.id == 'equals'){
+		// click on operand or =
+		else if(button.parentElement.id == 'operands' || button.id == '='){
 			display.append(`${button.id}`);
 			// push digit to array then clear number
 			if(num != 0){
@@ -26,10 +26,10 @@ buttons.forEach(button => {
 				num = ''; 
 			}
 
-			// only push operand, no need to push equals
-			if(button.id != 'equals') {statement.push(button.id)}; 
+			// only push operand, no need to push =
+			if(button.id != '=') {statement.push(button.id)}; 
 
-			// number - operand - operand/equals
+			// number - operand - operand/=
 			// if you click another operand, check if statement already has number and operand
 			// calculation will take place using digit by itself and first operand
 			if(
@@ -37,7 +37,7 @@ buttons.forEach(button => {
 			typeof statement[0] == 'number' && 
 			typeof statement[1] == 'string' &&
 			typeof statement[2] == 'string') ||
-			(button.id == 'equals' && 
+			(button.id == '=' && 
 			typeof statement[0] == 'number' &&
 			typeof statement[1] == 'string' &&
 			typeof statement[2] == 'undefined')
@@ -45,25 +45,36 @@ buttons.forEach(button => {
 				currentResults = operate(statement[1], Number(statement[0]), Number(statement[0]))
 				console.log('the current answer is: ' + currentResults); // display current results
 				statement.splice(0, 3, currentResults); // remove previous elements from array, replaces index 0 w/ current results
+				display.innerText = `${currentResults}`;
 				num = '';
-				if(button.id != 'equals') statement.push(button.id) //push new operand
+
+				//push and display new operand
+				if(button.id != '='){ 
+					statement.push(button.id) 
+					display.append(button.id);
+					
+				}	
 			}
 
+
 			// basic calculations
-			if(button.id == 'equals' && typeof statement[2] == 'number' 
+			if(button.id == '=' && typeof statement[2] == 'number' 
 			|| (button.parentElement.id == 'operands' && statement.length >= 3)){
 				currentResults = operate(statement[1], Number(statement[0]), Number(statement[2])) //calculate results
 				console.log('the current answer is: ' + currentResults); // display current results
 				statement.splice(0, 3, currentResults); // remove previous elements from array, replaces index 0 w/ current results
 				num = '';
+				display.append(`${currentResults}`)
 			}
-		} //elseif operand or equals
+		} //elseif operand or =
 
 		else if(button.id == 'clear-all'){ //clear entire array
 			statement = [];
+			display.innerText = ''
 		}
 		else if(button.id == 'clear-entry'){ //clear last entry
 			statement.pop();
+			//display.innerText = `${statement}`
 		}
 		console.log(statement);
 	}); //eventclicker
