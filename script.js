@@ -13,7 +13,7 @@ buttons.forEach(button => {
 		if(button.parentElement.id == 'digits'){
 			// if number in statement was calculated, clear it
 			if(statement.length == 1){
-				console.log('the current answer is ' + answer);
+				//console.log('the current answer is ' + answer);
 				display.innerText = '';
 				//answer.innerText = answer;
 				statement = [];
@@ -27,8 +27,11 @@ buttons.forEach(button => {
 		else if(button.parentElement.id == 'operands' || button.id == '='){
 			display.append(`${button.id}`); // only for displaying
 
+			console.log('the number to push is' + num);
+
 			// push digit to array then clear number
-			if(num != undefined){
+			if(num !== ''){
+
 				statement.push(Number(num)); 
 				num = ''; 
 			}
@@ -66,11 +69,12 @@ buttons.forEach(button => {
 
 			// basic calculations
 			if(button.id == '=' && typeof statement[2] == 'number' 
-			|| (button.parentElement.id == 'operands' && statement.length >= 3)){
+			|| (button.parentElement.id == 'operands' && statement.length >= 3)
+			){
 				currentResults = operate(statement[1], Number(statement[0]), Number(statement[2])) //calculate results
 				statement.splice(0, 3, currentResults); // remove previous elements from array, replaces index 0 w/ current results
 				num = '';
-				console.log('the current answer is ' + currentResults)
+				//console.log('the current answer is ' + currentResults)
 				display.append(`${currentResults}`);
 				answer.innerText = `${currentResults}`;
 				display.append(answer);
