@@ -1,5 +1,5 @@
 *{
-
+    font-family: 'courier new';
 }
 
 #calculator-container{
@@ -11,6 +11,7 @@
 .btn{
     width: 80px;
     height: 80px;
+    font-size: 24px;
 }
 
 #digits .btn{
