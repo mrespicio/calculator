@@ -1,6 +1,7 @@
 const calculatorContainer = document.getElementById('calculator-container');
 const buttons = calculatorContainer.querySelectorAll('button'); // nodelist of all buttons
-const display = document.getElementById('display')
+const display = document.getElementById('display');
+const answer = document.getElementById('answer-display');
 
 let statement = [];
 let num = '';
@@ -11,15 +12,21 @@ buttons.forEach(button => {
 		// if click digit, append to num
 		if(button.parentElement.id == 'digits'){
 			// if number in statement was calculated, clear it
-			if(statement.length == 1) statement = [];
-			num += button.id;
-			console.log('current Number is: ' + num)
-			display.append(`${button.id}`)
+			if(statement.length == 1){
+				console.log('the current answer is ' + answer);
+				display.innerText = '';
+				//answer.innerText = answer;
+				statement = [];
+			}
+			num += button.id; // create number
+			//console.log('current Number is: ' + num)
+			display.append(`${button.id}`) //append digit to display, not yet pushed into array
 		}
 
 		// click on operand or =
 		else if(button.parentElement.id == 'operands' || button.id == '='){
-			display.append(`${button.id}`);
+			display.append(`${button.id}`); // only for displaying
+
 			// push digit to array then clear number
 			if(num != 0){
 				statement.push(Number(num)); 
@@ -42,35 +49,41 @@ buttons.forEach(button => {
 			typeof statement[1] == 'string' &&
 			typeof statement[2] == 'undefined')
 			){
-				currentResults = operate(statement[1], Number(statement[0]), Number(statement[0]))
-				console.log('the current answer is: ' + currentResults); // display current results
+				currentResults = operate(statement[1], Number(statement[0]), Number(statement[0]));
 				statement.splice(0, 3, currentResults); // remove previous elements from array, replaces index 0 w/ current results
 				display.innerText = `${currentResults}`;
+				answer.innerText = `${currentResults}`;
 				num = '';
 
 				//push and display new operand
 				if(button.id != '='){ 
 					statement.push(button.id) 
 					display.append(button.id);
-					
+					answer.innerText = `${currentResults}`;
+					display.append(answer);
 				}	
 			}
-
 
 			// basic calculations
 			if(button.id == '=' && typeof statement[2] == 'number' 
 			|| (button.parentElement.id == 'operands' && statement.length >= 3)){
 				currentResults = operate(statement[1], Number(statement[0]), Number(statement[2])) //calculate results
-				console.log('the current answer is: ' + currentResults); // display current results
 				statement.splice(0, 3, currentResults); // remove previous elements from array, replaces index 0 w/ current results
 				num = '';
-				display.append(`${currentResults}`)
+				console.log('the current answer is ' + currentResults)
+				display.append(`${currentResults}`);
+				answer.innerText = `${currentResults}`;
+				display.append(answer);
 			}
 		} //elseif operand or =
 
 		else if(button.id == 'clear-all'){ //clear entire array
+			console.log('the last answer was ' + currentResults)
 			statement = [];
-			display.innerText = ''
+			display.innerText = '';
+			//console.log('the current display is ' + display.innerText);
+			answer.innerText = '';
+			//console.log(answer.innerText);
 		}
 		else if(button.id == 'clear-entry'){ //clear last entry
 			statement.pop();

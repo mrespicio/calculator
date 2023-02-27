@@ -7,6 +7,9 @@
     width: 500px;
     height: 100px;
 }
+#answer-display{
+    font-size: 28px;
+}
 #calculator-container{
     background-color: lightblue;
     width: 500px;
