@@ -1,0 +1,23 @@
+*{
+
+}
+
+#calculator-container{
+    background-color: lightblue;
+    width: 500px;
+    height: 500px;
+}
+
+.btn{
+    width: 80px;
+    height: 80px;
+}
+
+#digits .btn{
+    background-color: bisque;
+}
+
+
+#operands .btn{
+    background-color: lightcoral;
+}
