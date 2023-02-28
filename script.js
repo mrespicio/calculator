@@ -76,8 +76,7 @@ buttons.forEach(button => {
 		}
 		else if(button.id == 'clear-entry'){ //clear last entry
 			statement.pop();
-			//num = num.substring(0, num.length-1);
-			//display.removeChild(display.lastElementChild);
+			num = num.substring(0, num.length-1);
 			//display.innerText = display;
 		}
 
