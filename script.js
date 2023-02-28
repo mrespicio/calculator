@@ -10,15 +10,22 @@ let displayText = '';
 
 buttons.forEach(button => {
 	button.addEventListener('click', () => {
+
 		// if click digit, append to num
 		if(button.parentElement.id == 'digits'){
+			if(button.id == '.' && num % 1 != 0){ //user tries to click on . even if num has a decimal
+				console.log('no additional decimal can be added');
+				button.id = '';
+			}
 			// if number in statement was calculated, clear it
-			if(statement.length == 1 || typeof statement[0] =='string'){
+			else if(statement.length == 1 || typeof statement[0] =='string'){
 				display.innerText = '';
 				statement = [];
 			}
 			num += button.id; // create number
 		}
+
+
 
 		// click on operand or =
 		else if(button.parentElement.id == 'operands' || button.id == '='){
