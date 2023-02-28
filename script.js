@@ -10,7 +10,6 @@ let displayText = '';
 
 buttons.forEach(button => {
 	button.addEventListener('click', () => {
-
 		// if click digit, append to num
 		if(button.parentElement.id == 'digits'){
 			if(button.id == '.' && num % 1 != 0){ //user tries to click on . even if num has a decimal
@@ -24,9 +23,6 @@ buttons.forEach(button => {
 			}
 			num += button.id; // create number
 		}
-
-
-
 		// click on operand or =
 		else if(button.parentElement.id == 'operands' || button.id == '='){
 			// push digit to array then clear number
@@ -54,15 +50,14 @@ buttons.forEach(button => {
 				currentResults = operate(statement[1], Number(statement[0]), Number(statement[0]));
 				statement.splice(0, 3, currentResults); // remove previous elements from array, replaces index 0 w/ current results
 				num = '';
-
+				
 				//push and display new operand
 				if(button.id != '=') statement.push(button.id) 
 			}
 
 			// basic calculations
 			if(button.id == '=' && typeof statement[2] == 'number' 
-			|| (button.parentElement.id == 'operands' && statement.length >= 3)
-			){
+			|| (button.parentElement.id == 'operands' && statement.length >= 3)){
 				currentResults = operate(statement[1], Number(statement[0]), Number(statement[2])) //calculate results
 				statement.splice(0, 3, currentResults); // remove previous elements from array, replaces index 0 w/ current results
 				num = '';
@@ -90,7 +85,6 @@ buttons.forEach(button => {
 			answer.innerText = currentResults;
 			currentResults = '';
 		} 
-
 		display.append(displayText);
 		console.log('the current number to push is ' + num);
 		console.log(statement);
