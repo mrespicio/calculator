@@ -13,7 +13,7 @@ buttons.forEach(button => {
 		// if click digit, append to num
 		if(button.parentElement.id == 'digits'){
 			// if number in statement was calculated, clear it
-			if(statement.length == 1){
+			if(statement.length == 1 || typeof statement[0] =='string'){
 				display.innerText = '';
 				statement = [];
 			}
@@ -108,6 +108,7 @@ function operate(operator, a, b){
 			return multiply(a, b);
 			break;
 		case '/':
+			if(b == 0) return 'you cannot divide by 0!'
 			return Math.round(divide(a, b) * 100) / 100;
 			break;
 	}
