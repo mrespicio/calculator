@@ -4,28 +4,39 @@
 
 #display{
     background-color: lightcyan;
-    width: 500px;
-    height: 100px;
+    width: 600px;
+    height: 50px;;
+    /*grid-column: 1 / -1 ;*/
 }
+
 #answer-display{
     font-size: 28px;
+    width: 600px;
+    height: 100px;
+    /*grid-column: 1 / -1;*/
 }
+
 #calculator-container{
     background-color: lightblue;
-    width: 500px;
-    height: 500px;
+    width: 600px;
+    height: 600px;
+    display: grid;
+    /*grid-template-columns: repeat(4, 150px);
+    grid-template-rows: repeat(6, 150px); */
 }
 
 .btn{
-    width: 80px;
-    height: 80px;
+    width: 150px;
+    height: 150px;
     font-size: 24px;
 }
 
+#0{
+
+}
 #digits .btn{
     background-color: bisque;
 }
-
 
 #operands .btn{
     background-color: lightcoral;

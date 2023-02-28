@@ -6,7 +6,7 @@ const answer = document.getElementById('answer-display');
 let statement = [];
 let num = '';
 let currentResults;
-let dup = false;
+let displayText = '';
 
 buttons.forEach(button => {
 	button.addEventListener('click', () => {
@@ -18,7 +18,6 @@ buttons.forEach(button => {
 				statement = [];
 			}
 			num += button.id; // create number
-			//console.log('current Number is: ' + num)
 		}
 
 		// click on operand or =
@@ -34,7 +33,7 @@ buttons.forEach(button => {
 
 			// number - operand - operand/=
 			// if you click another operand, check if statement already has number and operand
-			// calculation will take place using digit by itself and first operand
+			// calculation will take place using digit by itself and original operand
 			if(
 			(button.parentElement.id == 'operands' && 
 			typeof statement[0] == 'number' && 
@@ -50,7 +49,7 @@ buttons.forEach(button => {
 				num = '';
 
 				//push and display new operand
-				//if(button.id != '=') statement.push(button.id) 
+				if(button.id != '=') statement.push(button.id) 
 			}
 
 			// basic calculations
@@ -69,23 +68,24 @@ buttons.forEach(button => {
 			answer.innerText = '';
 		}
 		else if(button.id == 'clear-entry'){ //clear last entry
-			//statement.pop();
+			statement.pop();
 			//num = num.substring(0, num.length-1);
-			//display.innerText = display.toString().substring(0, statement.length-1);
+			display.removeChild(display.lastElementChild);
+			//display.innerText = display;
 		}
 
 		if(button.id != 'clear-all' && button.id != 'clear-entry'){
 			display.append(button.id);
-		}
+		} 
 
-		console.log('the answer is' + currentResults);
 		if(typeof currentResults != 'undefined'){
-			//let displayResults = currentResults;
+			console.log('the answer is' + currentResults);
 			display.append(currentResults);
 			answer.innerText = currentResults;
 			currentResults = '';
 		} 
 
+		display.append(displayText);
 		console.log('the current number to push is ' + num);
 		console.log(statement);
 	}); //eventclicker
@@ -108,7 +108,7 @@ function operate(operator, a, b){
 			return multiply(a, b);
 			break;
 		case '/':
-			return divide(a, b);
+			return Math.round(divide(a, b) * 100) / 100;
 			break;
 	}
 }
