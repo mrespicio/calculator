@@ -6,6 +6,7 @@ const answer = document.getElementById('answer-display');
 let statement = [];
 let num = '';
 let currentResults;
+let dup = false;
 
 buttons.forEach(button => {
 	button.addEventListener('click', () => {
@@ -49,9 +50,7 @@ buttons.forEach(button => {
 				num = '';
 
 				//push and display new operand
-				if(button.id != '='){ 
-					statement.push(button.id) 
-				}	
+				//if(button.id != '=') statement.push(button.id) 
 			}
 
 			// basic calculations
@@ -65,20 +64,23 @@ buttons.forEach(button => {
 		} //elseif operand or =
 
 		else if(button.id == 'clear-all'){ //clear entire array
-			console.log('the last answer was ' + currentResults)
 			statement = [];
 			display.innerText = '';
 			answer.innerText = '';
 		}
 		else if(button.id == 'clear-entry'){ //clear last entry
 			//statement.pop();
-			num = num.substring(0, num.length-1);
-			//display.innerText = `${statement}`
+			//num = num.substring(0, num.length-1);
+			//display.innerText = display.toString().substring(0, statement.length-1);
 		}
 
-		if(button.id != 'clear-all' && button.id != 'clear-entry') display.append(button.id);
+		if(button.id != 'clear-all' && button.id != 'clear-entry'){
+			display.append(button.id);
+		}
+
 		console.log('the answer is' + currentResults);
 		if(typeof currentResults != 'undefined'){
+			//let displayResults = currentResults;
 			display.append(currentResults);
 			answer.innerText = currentResults;
 			currentResults = '';
